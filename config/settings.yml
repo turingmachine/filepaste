@@ -1,0 +1,8 @@
+
+general:
+        hash_length: "32"
+
+ldap_settings:
+        host: "ldap.yourserver.com"
+        port: "389"
+        base: "dc=your,dc=base"

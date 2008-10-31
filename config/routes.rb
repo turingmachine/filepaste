@@ -1,5 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => 'uploads'
+  
+  map.namespace :admin do |admin|
+    admin.resources :uploads
+  end
+
+  map.root :controller => 'uploads', :action => 'new'
   map.resources :uploads
 
   # The priority is based upon order of creation: first created -> highest priority.

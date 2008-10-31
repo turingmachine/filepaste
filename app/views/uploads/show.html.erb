@@ -1,23 +1,17 @@
 <p>
-  <b>Filename:</b>
+  <b>File:</b><br/>
   <%=h @upload.filename %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Description:</b><br/>
   <%=h @upload.description %>
 </p>
 
 <p>
-  <b>Hash key:</b>
-  <%=h @upload.hash_key %>
+  <b>This is the URL to download your file:</b><br/>
+  <% download_url = root_url + 'downloads/' + @upload.hash_key + '/' + @upload.filename %>
+  <a href="<%=h download_url%>"><h3><%=h download_url%></h3></a>
 </p>
 
-<p>
-  <b>Content type:</b>
-  <%=h @upload.content_type %>
-</p>
-
-
-<%= link_to 'Edit', edit_upload_path(@upload) %> |
-<%= link_to 'Back', uploads_path %>
+<%= link_to 'Upload new File', new_upload_path %>
