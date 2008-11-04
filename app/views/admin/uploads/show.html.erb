@@ -1,0 +1,17 @@
+<p>
+  <b>File:</b><br/>
+  <%=h @upload.filename %>
+</p>
+
+<p>
+  <b>Description:</b><br/>
+  <%=h @upload.description %>
+</p>
+
+<p>
+  <b>This is the URL to download your file:</b><br/>
+  <% download_url = root_url + 'downloads/' + @upload.hash_key + '/' + @upload.filename %>
+  <a href="<%=h download_url%>"><h3><%=h download_url%></h3></a>
+</p>
+
+<%= link_to 'Back', admin_uploads_path %>
