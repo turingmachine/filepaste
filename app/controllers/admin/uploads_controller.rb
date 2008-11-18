@@ -19,11 +19,6 @@ class Admin::UploadsController < ApplicationController
     end
   end
 
-  # GET /admin/uploads/1/edit
-  def edit
-    @upload = Upload.find(params[:id])
-  end
-
   # GET /admin/uploads
   # GET /admin/uploads.xml
   def index
@@ -32,23 +27,6 @@ class Admin::UploadsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @uploads }
-    end
-  end
-
-  # PUT /admin/uploads/1
-  # PUT /admin/uploads/1.xml
-  def update
-    @upload = Upload.find(params[:id])
-   
-    respond_to do |format|
-      if @upload.update_attributes(params[:upload])
-        flash[:notice] = 'Upload was successfully updated.'
-        format.html { redirect_to([:admin, @upload]) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @upload.errors, :status => :unprocessable_entity }
-      end
     end
   end
 

@@ -2,23 +2,21 @@
 
 <table>
   <tr>
+    <th>Post date</th>
     <th>Filename</th>
+    <th>Type</th>
     <th>Description</th>
-    <th>Hash key</th>
-    <th>Content type</th>
-    <th>Created at</th>
+    <th>Actions</th>
   </tr>
 
 <% for upload in @uploads %>
-  <tr>
-    <td><%=h upload.filename %></td>
-    <td><%=h upload.description %></td>
-    <td><%=h upload.hash_key %></td>
-    <td><%=h upload.content_type %></td>
+  <tr class="<%= cycle("row-a","row-b") %>">
     <td><%=h upload.created_at %></td>
-    <td><%= link_to 'Show', [:admin, upload] %></td>
-    <td><%= link_to 'Edit', edit_admin_upload_path(upload) %></td>
-    <td><%= link_to 'Destroy', [:admin, upload], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h upload.filename %></td>
+    <td><%=h upload.content_type %></td>
+    <td><%=h upload.description %></td>
+    <td><%= link_to 'Show', [:admin, upload] %>, 
+    <%= link_to 'Delete', [:admin, upload], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

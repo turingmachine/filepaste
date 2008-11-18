@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="Robots" content="noindex,nofollow" />
+  <title>Uploads: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'PixelGreen' %>
+</head>
+<body>
+
+  <div id="wrap">
+    <div id="header"><div id="header-content">
+      <h1 id="logo">File<span class="gray">Paste</span></h1>
+      <h2 id="slogan">pastebin for files ...</h2>
+    
+      <!-- Menu Tabs -->
+      <ul>
+        <li><a href=<%=h root_url + 'uploads/new' %> id="current">upload new file</a></li>
+        <li><a href=<%=h root_url + 'admin/uploads' %> id="current">list files</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content-wrap">
+    <div id="content">
+      <div id="sidebar" >
+        
+        <div class="sidebox">
+	  
+	  <h1>Usage</h1>
+	  
+	  <p><%= @filepaste_settings['general']['help_text'] %></p>
+
+	</div>
+      </div>
+
+      <div id="main">
+        <p style="color: green"><%= flash[:notice] %></p>
+
+        <%= yield  %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

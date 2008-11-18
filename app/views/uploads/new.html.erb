@@ -4,15 +4,15 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
     <%= f.label 'Path to File' %><br />
     <%= f.file_field 'file' %>
   </p>
   <p>
-    <%= f.submit "Create" %>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.submit "Upload" %>
   </p>
 <% end %>
 
