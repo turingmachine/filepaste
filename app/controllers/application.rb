@@ -1,8 +1,9 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+require 'net/ldap'
 
 class ApplicationController < ActionController::Base
-  before_filter :load_settings
+  before_filter :load_settings, :authenticate
 
   helper :all # include all helpers, all the time
 
@@ -14,9 +15,32 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
-
+  
   def load_settings
     @filepaste_settings = YAML.load( File.open( RAILS_ROOT + "/config/settings.yml" ) )
+  end
+
+  def authenticate
+    authenticate_or_request_with_http_basic @filepaste_settings['general']['title'] do |username, password|
+      @ldap = Net::LDAP.new :host => @filepaste_settings['ldap']['host'],
+                            :base => @filepaste_settings['ldap']['base'],
+			    :port => @filepaste_settings['ldap']['port']
+			    #:encryption => :simple_tls
+
+      # Search for the DN of the Username
+      username_with_dn = ""
+      filter = Net::LDAP::Filter.eq( 'uid', username )
+      @ldap.search( :filter => filter ) { |entry| username_with_dn = entry.dn }
+      @ldap.auth username_with_dn, password
+      
+      # Lest have a look if the user is in the admin group
+      admin_filter = Net::LDAP::Filter.eq( 'memberUid', username )
+      session[:admin_group] = @ldap.search :filter => admin_filter,
+                                           :base => @filepaste_settings['ldap']['admin_group_dn'],
+                                           :return_result => false
+
+      @ldap.bind
+    end
   end
 
 end

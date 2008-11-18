@@ -1,9 +1,9 @@
 class Admin::UploadsController < ApplicationController
-  before_filter :authenticate
+  before_filter :check_for_admin
 
-  def authenticate
-    authenticate_or_request_with_http_basic do |name, pass|
-      name == 'test' && pass == 'nopass'
+  def check_for_admin
+    unless session[:admin_group]
+      render :inline => "no Access"
     end
   end
 

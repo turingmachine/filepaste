@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <meta name="Robots" content="noindex,nofollow" />
-  <title>Uploads: <%= controller.action_name %></title>
+  <title><%= @filepaste_settings['general']['title'] %></title>
   <%= stylesheet_link_tag 'PixelGreen' %>
 </head>
 <body>
@@ -18,7 +18,9 @@
       <!-- Menu Tabs -->
       <ul>
         <li><a href=<%=h root_url + 'uploads/new' %> id="current">upload new file</a></li>
-        <li><a href=<%=h root_url + 'admin/uploads' %> id="current">list files</a></li>
+	<% if session[:admin_group] %>
+          <li><a href=<%=h root_url + 'admin/uploads' %> id="current">list files</a></li>
+	<% end %>
       </ul>
     </div>
   </div>

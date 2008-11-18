@@ -1,7 +1,6 @@
 
 general:
         title: "FilePaste Server"
-        greeting: "Welcome to our FilePaste Server"
         hash_length: "16"
         help_text: "<ul>
                         <li>Press the 'Browse...' button</li>
@@ -23,3 +22,4 @@ ldap:
         host: "ldap.yourserver.com"
         port: "389"
         base: "dc=your,dc=base"
+        admin_group_dn: "cn=admins,ou=groups,dc=your,dc=base"
