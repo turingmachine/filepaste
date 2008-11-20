@@ -32,3 +32,19 @@ INSTALLATION:
   Now we create the database:
 
     rake db:create:all
+
+  And populate it:
+
+    rake db:migrate:all
+
+  
+  Now we need to do some configuration for the authentication over LDAP:
+
+    vim config/settings.yml
+
+- Start the Server
+  To simply test Filepaste, go to the base directory and run the following
+  command to start the mongrel server:
+
+    mongrel_rails start --port 8080 --address 127.0.0.1 --environment development
+
