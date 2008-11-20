@@ -22,24 +22,25 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     authenticate_or_request_with_http_basic @filepaste_settings['general']['title'] do |username, password|
-      @ldap = Net::LDAP.new :host => @filepaste_settings['ldap']['host'],
+      ldap = Net::LDAP.new  :host => @filepaste_settings['ldap']['host'],
                             :base => @filepaste_settings['ldap']['base'],
-			    :port => @filepaste_settings['ldap']['port']
-			    #:encryption => :simple_tls
+                            :port => @filepaste_settings['ldap']['port']
 
       # Search for the DN of the Username
       username_with_dn = ""
       filter = Net::LDAP::Filter.eq( 'uid', username )
-      @ldap.search( :filter => filter ) { |entry| username_with_dn = entry.dn }
-      @ldap.auth username_with_dn, password
+      ldap.search( :filter => filter ) { |entry| username_with_dn = entry.dn }
+      ldap.auth username_with_dn, password
       
       # Lest have a look if the user is in the admin group
       admin_filter = Net::LDAP::Filter.eq( 'memberUid', username )
-      session[:admin_group] = @ldap.search :filter => admin_filter,
-                                           :base => @filepaste_settings['ldap']['admin_group_dn'],
-                                           :return_result => false
+      session[:admin_group] = false
+      ldap.search :filter => admin_filter,
+                  :base => @filepaste_settings['ldap']['admin_group_dn'] do |entry|
+                    session[:admin_group] = true
+                  end
 
-      @ldap.bind
+      ldap.bind
     end
   end
 
