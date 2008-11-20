@@ -68,9 +68,9 @@ class UploadsController < ApplicationController
 
   def downloadinfo
     @upload = Upload.find(:first, :conditions => [ 'hash_key = ?', params[:id] ])
-    flash[:notice] = 'No such file.'
     if @upload.nil?
       respond_to do |format|
+        flash[:notice] = 'No such file.'
         format.html { render :action => "new" }
       end
     end
